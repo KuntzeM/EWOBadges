@@ -13,6 +13,7 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfbase import pdfmetrics
 from PIL import Image
 
+
 from kuntze.oneBadge import oneBadge
 
 
@@ -179,7 +180,7 @@ class MyForm(QtGui.QMainWindow):
                 a = sg.text() + "'" + year.text()
                 oneBadge(c, imagePath, name.text(), title, a, badge_width=badge_width, badge_height=badge_height, font_name=fontName)
                 oneBadge(c, imagePath, nick.text(), title, a, badge_width=badge_width, badge_height=badge_height, font_name=fontName)
-                self.ui.textarea_log.append(str(i) + " Badge für " + name.text() + " wurde erzeugt.")
+                self.ui.textarea_log.append(str(i) + " Badge fuer " + name.text() + " wurde erzeugt.")
 
             percent = (100/progress_max)*i
             self.ui.progressbar.setValue(percent)

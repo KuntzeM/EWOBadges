@@ -4,6 +4,7 @@ from reportlab.lib.utils import ImageReader
 from reportlab.lib.units import cm
 from PIL import Image
 
+
 from kuntze.createTextImage import createTextImage
 
 
