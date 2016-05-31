@@ -1,10 +1,10 @@
 
 from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageEnhance
-
+from kuntze.resource import resource_path
 
 def createTextImage(text, font_name='arial', text_color=(0, 0, 0, 255), glow_color=(255, 255, 255, 128)):
 
-    font = ImageFont.truetype('misc/fonts/'+font_name + '.ttf', 300)
+    font = ImageFont.truetype(resource_path('misc/fonts/'+font_name + '.ttf'), 300)
 
     line_width, line_height = font.getsize(text)
     img = Image.new('RGBA', (line_width+100, line_height+100), (0, 0, 0, 0))

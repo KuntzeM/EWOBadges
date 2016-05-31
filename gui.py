@@ -8,7 +8,7 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt4 import QtCore, QtGui
-
+from kuntze.resource import resource_path
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
@@ -67,7 +67,7 @@ class Ui_MainWindow(object):
         self.button_background.setGeometry(QtCore.QRect(620, 20, 31, 30))
         self.button_background.setText(_fromUtf8(""))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(_fromUtf8("misc/images/fileopen.gif")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8(resource_path("misc/images/fileopen.gif"))), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.button_background.setIcon(icon)
         self.button_background.setDefault(False)
         self.button_background.setFlat(False)

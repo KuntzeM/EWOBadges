@@ -3,7 +3,7 @@ from reportlab.pdfbase.pdfmetrics import stringWidth
 from reportlab.lib.utils import ImageReader
 from reportlab.lib.units import cm
 from PIL import Image
-
+from kuntze.resource import resource_path
 
 from kuntze.createTextImage import createTextImage
 
@@ -30,7 +30,7 @@ def oneBadge(c, background_path, name_text, left_text, right_text, badge_width=9
         font_size -= 5
         text_width = stringWidth(name_text, font_name, font_size)
 
-    c.setFont(font_name, font_size)
+    c.setFont(resource_path(font_name), font_size)
     c.drawCentredString(offset[0]+(badge_width/2), offset[1]+0.8*(badge_height/2), name_text)
 
     tmp_width, tmp_height = left_logo.size

@@ -13,9 +13,7 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfbase import pdfmetrics
 from PIL import Image
 
-
 from kuntze.oneBadge import oneBadge
-
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -25,6 +23,8 @@ except AttributeError:
 
 try:
     _encoding = QtGui.QApplication.UnicodeUTF8
+
+
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig, _encoding)
 except AttributeError:
@@ -63,16 +63,16 @@ class MyForm(QtGui.QMainWindow):
         if self.ui.Tab.currentIndex() > 1:
             return
 
-        self.ui.Tab.setCurrentIndex(self.ui.Tab.currentIndex()+1)
+        self.ui.Tab.setCurrentIndex(self.ui.Tab.currentIndex() + 1)
 
     def prevTab(self):
         if self.ui.Tab.currentIndex() < 1:
             return
 
-        self.ui.Tab.setCurrentIndex(self.ui.Tab.currentIndex()-1)
+        self.ui.Tab.setCurrentIndex(self.ui.Tab.currentIndex() - 1)
 
     def loadDatabase(self):
-        self.databasePath = QtGui.QFileDialog().getOpenFileName(caption = "Namen", filter="*.txt")
+        self.databasePath = QtGui.QFileDialog().getOpenFileName(caption="Namen", filter="*.txt")
         if not self.databasePath:
             return
 
@@ -94,7 +94,6 @@ class MyForm(QtGui.QMainWindow):
         self.ui.table_databases.resizeColumnsToContents()
         self.ui.table_databases.resizeRowsToContents()
 
-
     def loadBackground(self):
         self.backgroundPath = QtGui.QFileDialog().getOpenFileName(caption="Hintergrund", filter="*.jpg")
         pixmap = QtGui.QPixmap(self.backgroundPath)
@@ -103,15 +102,13 @@ class MyForm(QtGui.QMainWindow):
         self.ui.label_bg_prev.show()
         self.ui.edit_path_bg.setText(self.backgroundPath)
 
-
-
     def generateBadges(self):
 
         progress_max = self.ui.table_databases.rowCount()
         self.ui.textarea_log.clear()
 
         fontName = 'agency-fb'
-        fontPath = 'misc/fonts/'+fontName+'.ttf'
+        fontPath = 'misc/fonts/' + fontName + '.ttf'
         pdfmetrics.registerFont(TTFont(fontName, fontPath))
 
         imagePath = self.backgroundPath
@@ -141,16 +138,15 @@ class MyForm(QtGui.QMainWindow):
             self.ui.button_next.setDisabled(False)
             return
 
-
-        self.outputPath = QtGui.QFileDialog().getSaveFileName(caption = "Speicherort", filter="*.pdf")
+        self.outputPath = QtGui.QFileDialog().getSaveFileName(caption="Speicherort", filter="*.pdf")
         if not self.outputPath:
             return
 
         image = Image.open(imagePath)
         image_width, image_height = image.size
 
-        badge_width = 9*cm
-        badge_height = 6*cm
+        badge_width = 9 * cm
+        badge_height = 6 * cm
 
         c = canvas.Canvas(self.outputPath, pagesize=[badge_width, badge_height])
 
@@ -158,11 +154,11 @@ class MyForm(QtGui.QMainWindow):
         if not title:
             title = 'Tutor'
 
-        for i in range(1, progress_max+1):
-            name = self.ui.table_databases.item(i-1,0)
-            nick = self.ui.table_databases.item(i-1,1)
-            sg = self.ui.table_databases.item(i-1,2)
-            year = self.ui.table_databases.item(i-1,3)
+        for i in range(1, progress_max + 1):
+            name = self.ui.table_databases.item(i - 1, 0)
+            nick = self.ui.table_databases.item(i - 1, 1)
+            sg = self.ui.table_databases.item(i - 1, 2)
+            year = self.ui.table_databases.item(i - 1, 3)
 
             flag = []
             if name is None:
@@ -178,11 +174,13 @@ class MyForm(QtGui.QMainWindow):
                 self.ui.textarea_log.append(str(i) + " Es fehlen Informationen: " + ', '.join(flag))
             else:
                 a = sg.text() + "'" + year.text()
-                oneBadge(c, imagePath, name.text(), title, a, badge_width=badge_width, badge_height=badge_height, font_name=fontName)
-                oneBadge(c, imagePath, nick.text(), title, a, badge_width=badge_width, badge_height=badge_height, font_name=fontName)
+                oneBadge(c, imagePath, name.text(), title, a, badge_width=badge_width, badge_height=badge_height,
+                         font_name=fontName)
+                oneBadge(c, imagePath, nick.text(), title, a, badge_width=badge_width, badge_height=badge_height,
+                         font_name=fontName)
                 self.ui.textarea_log.append(str(i) + " Badge fuer " + name.text() + " wurde erzeugt.")
 
-            percent = (100/progress_max)*i
+            percent = (100 / progress_max) * i
             self.ui.progressbar.setValue(percent)
         self.ui.textarea_log.append("")
         self.ui.textarea_log.append("Alle Badges wurden erstellt und gespeichert (" + self.outputPath + ") !")
