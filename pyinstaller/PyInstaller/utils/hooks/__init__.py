@@ -18,18 +18,19 @@
 import copy
 import glob
 import os
-import pkg_resources
 import pkgutil
 import re
 import sys
 import textwrap
 
-from ... import compat
-from ...compat import is_py2, is_win, is_py3, is_darwin, EXTENSION_SUFFIXES
-from ...utils import misc
+import pkg_resources
+
 from ... import HOMEPATH
+from ... import compat
 from ... import log as logging
+from ...compat import is_py2, is_win, is_py3, is_darwin, EXTENSION_SUFFIXES
 from ...depend.bindepend import findSystemLibrary
+from ...utils import misc
 
 logger = logging.getLogger(__name__)
 
@@ -698,8 +699,8 @@ print(p.__file__)
 # "PyInstaller.utils.hooks.win32" module.
 # NOTE: This function requires PyInstaller to be on the default "sys.path" for
 # the called Python process. Running py.test changes the working dir to a temp
-# dir, so PyInstaller should be installed via either "setup.py install" or
-# "setup.py develop" before running py.test.
+# dir, so PyInstaller should be installed via either "aaasetup.py install" or
+# "aaasetup.py develop" before running py.test.
 def get_pywin32_module_file_attribute(module_name):
     """
     Get the absolute path of the PyWin32 DLL specific to the PyWin32 module

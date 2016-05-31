@@ -1,19 +1,20 @@
 # convert ui to py
 # pyuic4 qtdesigner.ui -o qtdesigner.py
+import csv
+import os
+import subprocess
 import sys
 
-from PyQt4 import QtCore, QtGui, Qt
-import os, subprocess
+from PIL import Image
+from PyQt4 import QtCore, QtGui
+from reportlab.lib.units import cm
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.pdfgen import canvas
 
 from gui import Ui_MainWindow
-import csv
-from reportlab.pdfgen import canvas
-from reportlab.lib.units import cm
-from reportlab.pdfbase.ttfonts import TTFont
-from reportlab.pdfbase import pdfmetrics
-from PIL import Image
-
 from kuntze.oneBadge import oneBadge
+from kuntze.resource import resource_path
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -108,7 +109,7 @@ class MyForm(QtGui.QMainWindow):
         self.ui.textarea_log.clear()
 
         fontName = 'agency-fb'
-        fontPath = 'misc/fonts/' + fontName + '.ttf'
+        fontPath = resource_path('misc/fonts/' + fontName + '.ttf')
         pdfmetrics.registerFont(TTFont(fontName, fontPath))
 
         imagePath = self.backgroundPath
