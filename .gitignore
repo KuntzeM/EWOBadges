@@ -1,6 +1,5 @@
 /.project
 build
-dist
 *.pyc
 .idea
 *.pdf
@@ -20,3 +19,4 @@ pyinstaller/PyInstaller/loader/__pycache__/
 pyinstaller/PyInstaller/utils/__pycache__/
 pyinstaller/PyInstaller/utils/hooks/__pycache__/
 pyinstaller/PyInstaller/utils/win32/__pycache__/
+

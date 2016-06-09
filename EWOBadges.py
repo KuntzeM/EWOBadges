@@ -36,13 +36,15 @@ __author__ = 'Mathias Kuntze'
 
 class MyForm(QtGui.QMainWindow):
     backgroundFileTypes = dict(defaultextension='.jpg', filetypes=[('.jpg', '*.jpg')])
-    textFileTypes = dict(defaultextension='.txt', filetypes=[('Text-Datei', '*.txt')])
+    textFileTypes = dict(defaultextension='.txt', filetypes=[('Text-Datei', '*.txt'), ('CSV-Datei', '*.csv')])
     pdfFileTypes = dict(defaultextension='.pdf', filetypes=[('PDF', '*.pdf')])
 
     def __init__(self, parent=None):
         QtGui.QWidget.__init__(self, parent)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+
+        self.setWindowTitle(_translate("MainWindow", "EWOBadges v1.0", None))
 
         self.backgroundPath = ""
         self.databasePath = ""
@@ -73,7 +75,7 @@ class MyForm(QtGui.QMainWindow):
         self.ui.Tab.setCurrentIndex(self.ui.Tab.currentIndex() - 1)
 
     def loadDatabase(self):
-        self.databasePath = QtGui.QFileDialog().getOpenFileName(caption="Namen", filter="*.txt")
+        self.databasePath = QtGui.QFileDialog().getOpenFileName(caption="Namen", filter="CSV-Datei (*.txt *.csv)")
         if not self.databasePath:
             return
 
