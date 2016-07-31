@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # convert ui to py
 # pyuic4 qtdesigner.ui -o qtdesigner.py
 import csv
