@@ -1,5 +1,9 @@
 # EWOBadges
 
+## Compilierte Version:
+* [EwoBadges.exe](https://github.com/KuntzeM/EWOBadges/blob/master/dist/EWOBadges.exe)
+* Demos Dateien und Hintergrundbild: [dist](https://github.com/KuntzeM/EWOBadges/tree/master/dist)
+
 Aktuelle Version: 1.0
 (c) Mathias Kuntze,  mathias.kuntze@tu-ilmenau.de
 
