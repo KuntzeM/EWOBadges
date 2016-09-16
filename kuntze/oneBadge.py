@@ -6,10 +6,9 @@ from reportlab.pdfbase.pdfmetrics import stringWidth
 from kuntze.createTextImage import createTextImage
 
 
-def oneBadge(c, background_path, name_text, left_text, right_text, badge_width=9*cm, badge_height=6*cm, font_name='arial'):
-
-    font_size = 60
-    offset = (0, 0)
+def oneBadge(c, background_path, name_text, left_text, right_text, badge_width=9 * cm, badge_height=6 * cm,
+             font_name='arial', offset=(0, 0), pagebreak=True):
+    font_size = 70
     left_logo = createTextImage(left_text, font_name=font_name)
     right_logo = createTextImage(right_text, font_name=font_name)
 
@@ -24,7 +23,7 @@ def oneBadge(c, background_path, name_text, left_text, right_text, badge_width=9
 
     text_width = stringWidth(name_text, font_name, font_size)
 
-    while text_width > 0.8*badge_width:
+    while text_width > 0.9 * badge_width:
         font_size -= 5
         text_width = stringWidth(name_text, font_name, font_size)
 
@@ -41,6 +40,5 @@ def oneBadge(c, background_path, name_text, left_text, right_text, badge_width=9
     aspect = tmp_width/tmp_height
     tmp_height = 0.2*badge_height
     tmp_width = 1.5*aspect*tmp_height
-    c.drawImage(ImageReader(right_logo), badge_width - tmp_width, offset[1]+badge_height-tmp_height, height=tmp_height, width=tmp_width, mask='auto')
-
-    c.showPage()
+    c.drawImage(ImageReader(right_logo), offset[0] + badge_width - tmp_width, offset[1] + badge_height - tmp_height,
+                height=tmp_height, width=tmp_width, mask='auto')

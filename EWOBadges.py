@@ -12,6 +12,7 @@ from reportlab.lib.units import cm
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import A4
 
 from gui import Ui_MainWindow
 from kuntze.oneBadge import oneBadge
@@ -45,7 +46,7 @@ class MyForm(QtGui.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-        self.setWindowTitle(_translate("MainWindow", "EWOBadges v1.0", None))
+        self.setWindowTitle(_translate("MainWindow", "EWOBadges v1.1", None))
 
         self.backgroundPath = ""
         self.databasePath = ""
@@ -152,11 +153,14 @@ class MyForm(QtGui.QMainWindow):
         badge_width = 9 * cm
         badge_height = 6 * cm
 
-        c = canvas.Canvas(self.outputPath, pagesize=[badge_width, badge_height])
+        c = canvas.Canvas(self.outputPath, pagesize=A4)  # pagesize=[2*badge_width, badge_height])
 
         title = self.ui.edit_title.text()
         if not title:
             title = 'Tutor'
+
+        offset_bottom = 25
+        offset_left = 40
 
         for i in range(1, progress_max + 1):
             name = self.ui.table_databases.item(i - 1, 0)
@@ -179,15 +183,29 @@ class MyForm(QtGui.QMainWindow):
             else:
                 a = sg.text() + "'" + year.text()
                 oneBadge(c, imagePath, name.text(), title, a, badge_width=badge_width, badge_height=badge_height,
-                         font_name=fontName)
+                         font_name=fontName, offset=(offset_left, offset_bottom))
                 oneBadge(c, imagePath, nick.text(), title, a, badge_width=badge_width, badge_height=badge_height,
-                         font_name=fontName)
+                         font_name=fontName, offset=(offset_left + badge_width, offset_bottom))
                 self.ui.textarea_log.append(str(i) + " Badge fuer " + name.text() + " wurde erzeugt.")
+
+            offset_bottom += badge_height + 25
+            pagebreak = False
+            if i % 4 == 0:
+                offset_bottom = 25
+                c.showPage()
 
             percent = (100 / progress_max) * i
             self.ui.progressbar.setValue(percent)
         self.ui.textarea_log.append("")
         self.ui.textarea_log.append("Alle Badges wurden erstellt und gespeichert (" + self.outputPath + ") !")
+
+        c.setAuthor('StuRa TU Ilmenau')
+        c.setTitle('Badges für die Erstiwoche TU Ilmenau')
+        c.setCreator('EWOBadges.exe @Mathias Kuntze')
+        c.setSubject('https://github.com/KuntzeM/EWOBadges')
+
+
+
         c.save()
 
         if sys.platform == 'linux':

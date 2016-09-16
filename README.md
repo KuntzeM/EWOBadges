@@ -4,8 +4,19 @@
 * [EwoBadges.exe](https://github.com/KuntzeM/EWOBadges/blob/master/dist/EWOBadges.exe)
 * Demos Dateien und Hintergrundbild: [dist](https://github.com/KuntzeM/EWOBadges/tree/master/dist)
 
-Aktuelle Version: 1.0
+Aktuelle Version: 1.1
 (c) Mathias Kuntze,  mathias.kuntze@tu-ilmenau.de
+
+
+#### Changelog
+
+16.09.2016
+* Vorder- und Rückseite werden nebeneinander dargestellt
+* Ausgabe erfolgt auf A4 - Seite mit bis zu vier Badges
+* Namen werden vergrößert dargestellt (max. font size: 70)
+* PDF Metainformationen hinzugefügt
+
+
 
 #### Tab 1
 * Hintergrundbild der Badges auswählen
