@@ -6,17 +6,16 @@ import os
 import subprocess
 import sys
 
-from PIL import Image
 from PyQt4 import QtCore, QtGui
+from kuntze.oneBadge import oneBadge
+from kuntze.resource import resource_path
+from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import cm
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import A4
 
 from gui import Ui_MainWindow
-from kuntze.oneBadge import oneBadge
-from kuntze.resource import resource_path
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -46,9 +45,10 @@ class MyForm(QtGui.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-        self.setWindowTitle(_translate("MainWindow", "EWOBadges v1.1", None))
+        self.setWindowTitle(_translate("MainWindow", "EWOBadges v1.2", None))
 
         self.backgroundPath = ""
+        self.backgroundPath_2 = ""
         self.databasePath = ""
         self.outputPath = ""
         self.logoText = ""
@@ -58,10 +58,11 @@ class MyForm(QtGui.QMainWindow):
         self.ui.button_load_data.clicked.connect(self.loadDatabase)
         self.ui.button_start_generate.clicked.connect(self.generateBadges)
         self.ui.button_background.clicked.connect(self.loadBackground)
+        self.ui.button_background_2.clicked.connect(self.loadBackground_2)
         self.ui.Tab.currentChanged.connect(self.tabHandler)
 
         self.ui.table_databases.setColumnCount(4)
-        self.ui.table_databases.setRowCount(5)
+        self.ui.table_databases.setRowCount(8)
         self.ui.table_databases.setHorizontalHeaderLabels(['Name', 'Spitzname', 'Studiengang', 'Jahr'])
 
     def nextTab(self):
@@ -99,13 +100,23 @@ class MyForm(QtGui.QMainWindow):
         self.ui.table_databases.resizeColumnsToContents()
         self.ui.table_databases.resizeRowsToContents()
 
+    # front page
     def loadBackground(self):
-        self.backgroundPath = QtGui.QFileDialog().getOpenFileName(caption="Hintergrund", filter="*.jpg")
+        self.backgroundPath = QtGui.QFileDialog().getOpenFileName(caption="Vorderseite", filter="*.jpg")
         pixmap = QtGui.QPixmap(self.backgroundPath)
         pixmap = pixmap.scaled(self.ui.label_bg_prev.size(), QtCore.Qt.KeepAspectRatio)
         self.ui.label_bg_prev.setPixmap(pixmap)
         self.ui.label_bg_prev.show()
         self.ui.edit_path_bg.setText(self.backgroundPath)
+
+    # back page
+    def loadBackground_2(self):
+        self.backgroundPath_2 = QtGui.QFileDialog().getOpenFileName(caption="Rückseite", filter="*.jpg")
+        pixmap = QtGui.QPixmap(self.backgroundPath_2)
+        pixmap = pixmap.scaled(self.ui.label_bg_prev_2.size(), QtCore.Qt.KeepAspectRatio)
+        self.ui.label_bg_prev_2.setPixmap(pixmap)
+        self.ui.label_bg_prev_2.show()
+        self.ui.edit_path_bg_2.setText(self.backgroundPath_2)
 
     def generateBadges(self):
 
@@ -117,6 +128,7 @@ class MyForm(QtGui.QMainWindow):
         pdfmetrics.registerFont(TTFont(fontName, fontPath))
 
         imagePath = self.backgroundPath
+        imagePath_2 = self.backgroundPath_2
         self.logoText = self.ui.edit_title.text()
 
         if not imagePath:
@@ -143,12 +155,12 @@ class MyForm(QtGui.QMainWindow):
             self.ui.button_next.setDisabled(False)
             return
 
+        if not imagePath_2:
+            imagePath_2 = imagePath
+
         self.outputPath = QtGui.QFileDialog().getSaveFileName(caption="Speicherort", filter="*.pdf")
         if not self.outputPath:
             return
-
-        image = Image.open(imagePath)
-        image_width, image_height = image.size
 
         badge_width = 9 * cm
         badge_height = 6 * cm
@@ -168,25 +180,55 @@ class MyForm(QtGui.QMainWindow):
             sg = self.ui.table_databases.item(i - 1, 2)
             year = self.ui.table_databases.item(i - 1, 3)
 
+            rightText = list()
+
+            if sg is not None:
+                if sg.text() is not "":
+                    rightText.append(sg.text())
+
+            if year is not None:
+                if year.text() is not "":
+                    rightText.append(year.text())
+
+            if name is not None:
+                if name.text() is not "":
+                    name = name.text()
+                else:
+                    name = ""
+            else:
+                name = ""
+
+            if nick is not None:
+                if nick.text() is not "":
+                    nick = nick.text()
+                else:
+                    nick = ""
+            else:
+                nick = ""
+
             flag = []
-            if name is None:
+            if name is "":
                 flag.append("Name")
-            if nick is None:
+            if nick is "":
                 flag.append("Spitzname")
-            if sg is None:
-                flag.append("Studiengang")
-            if year is None:
-                flag.append("Jahr")
 
             if len(flag) > 0:
                 self.ui.textarea_log.append(str(i) + " Es fehlen Informationen: " + ', '.join(flag))
+
+            if len(rightText) == 0:
+                a = ""
             else:
-                a = sg.text() + "'" + year.text()
-                oneBadge(c, imagePath, name.text(), title, a, badge_width=badge_width, badge_height=badge_height,
-                         font_name=fontName, offset=(offset_left, offset_bottom))
-                oneBadge(c, imagePath, nick.text(), title, a, badge_width=badge_width, badge_height=badge_height,
-                         font_name=fontName, offset=(offset_left + badge_width, offset_bottom))
-                self.ui.textarea_log.append(str(i) + " Badge fuer " + name.text() + " wurde erzeugt.")
+                a = "'".join(rightText)
+
+            oneBadge(c, imagePath, name, title, a, badge_width=badge_width, badge_height=badge_height,
+                     font_name=fontName, offset=(offset_left, offset_bottom))
+            oneBadge(c, imagePath_2, nick, '', a, badge_width=badge_width, badge_height=badge_height,
+                     font_name=fontName, offset=(offset_left + badge_width, offset_bottom))
+
+            if name is "" or name is None:
+                self.ui.textarea_log.append(str(i) + " leerer Badge wurde erzeugt.")
+            else:
+                self.ui.textarea_log.append(str(i) + " Badge fuer " + name + " wurde erzeugt.")
 
             offset_bottom += badge_height + 25
             pagebreak = False

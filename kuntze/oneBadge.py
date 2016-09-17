@@ -1,9 +1,8 @@
 from PIL import Image
+from kuntze.createTextImage import createTextImage
 from reportlab.lib.units import cm
 from reportlab.lib.utils import ImageReader
 from reportlab.pdfbase.pdfmetrics import stringWidth
-
-from kuntze.createTextImage import createTextImage
 
 
 def oneBadge(c, background_path, name_text, left_text, right_text, badge_width=9 * cm, badge_height=6 * cm,
@@ -21,14 +20,15 @@ def oneBadge(c, background_path, name_text, left_text, right_text, badge_width=9
 
     c.drawImage(background_path, offset[0], offset[1], width=badge_width, height=badge_height)# preserveAspectRatio=True)
 
-    text_width = stringWidth(name_text, font_name, font_size)
-
-    while text_width > 0.9 * badge_width:
-        font_size -= 5
+    if name_text is not "":
         text_width = stringWidth(name_text, font_name, font_size)
 
-    c.setFont(font_name, font_size)
-    c.drawCentredString(offset[0]+(badge_width/2), offset[1]+0.8*(badge_height/2), name_text)
+        while text_width > 0.9 * badge_width:
+            font_size -= 5
+            text_width = stringWidth(name_text, font_name, font_size)
+
+        c.setFont(font_name, font_size)
+        c.drawCentredString(offset[0] + (badge_width / 2), offset[1] + 0.8 * (badge_height / 2), name_text)
 
     tmp_width, tmp_height = left_logo.size
     aspect = tmp_width/tmp_height

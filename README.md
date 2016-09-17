@@ -10,7 +10,14 @@ Aktuelle Version: 1.1
 
 #### Changelog
 
-16.09.2016
+17.09.2016 v1.2
+* Bilder für Vorder- und Rückseite können seperat ausgewählt werden
+* auf Rückseite wird Titel nicht mehr angezeigt (Titel => z.B. Tutor)
+* es müssen nicht mehr alle Personen Daten eingegeben werden
+    * wird nur Studiengang oder Jahr angegeben, dann wird kein Simikolon mehr angezeigt
+* durch Angabe keiner Personen Daten können nun "Blanko" Badges generiert werden
+
+16.09.2016 v1.1
 * Vorder- und Rückseite werden nebeneinander dargestellt
 * Ausgabe erfolgt auf A4 - Seite mit bis zu vier Badges
 * Namen werden vergrößert dargestellt (max. font size: 70)

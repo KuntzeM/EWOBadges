@@ -471,4 +471,3 @@ class Ui_MainWindow(object):
         self.button_start_generate.setText(_translate("MainWindow", "Badges erzeugen!", None))
         self.Tab.setTabText(self.Tab.indexOf(self.tab_generate), _translate("MainWindow", "3) Erzeugen", None))
 
-import image_rc
