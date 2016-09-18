@@ -69,7 +69,7 @@
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <property name="elideMode">
      <enum>Qt::ElideNone</enum>
@@ -151,8 +151,8 @@
        <string/>
       </property>
       <property name="icon">
-       <iconset>
-        <normaloff>misc/images/fileopen.gif</normaloff>misc/images/fileopen.gif</iconset>
+       <iconset resource="image.qrc">
+        <normaloff>:/newPrefix/misc/images/fileopen.gif</normaloff>:/newPrefix/misc/images/fileopen.gif</iconset>
       </property>
       <property name="default">
        <bool>false</bool>
@@ -665,8 +665,8 @@
        <string/>
       </property>
       <property name="icon">
-       <iconset>
-        <normaloff>misc/images/fileopen.gif</normaloff>misc/images/fileopen.gif</iconset>
+       <iconset resource="image.qrc">
+        <normaloff>:/newPrefix/misc/images/fileopen.gif</normaloff>:/newPrefix/misc/images/fileopen.gif</iconset>
       </property>
       <property name="default">
        <bool>false</bool>
@@ -1213,8 +1213,8 @@
        <string/>
       </property>
       <property name="icon">
-       <iconset>
-        <normaloff>misc/images/fileopen.gif</normaloff>misc/images/fileopen.gif</iconset>
+       <iconset resource="image.qrc">
+        <normaloff>:/newPrefix/misc/images/fileopen.gif</normaloff>:/newPrefix/misc/images/fileopen.gif</iconset>
       </property>
       <property name="default">
        <bool>false</bool>
@@ -1273,7 +1273,7 @@
      <x>0</x>
      <y>0</y>
      <width>665</width>
-     <height>24</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
