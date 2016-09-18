@@ -1,7 +1,0 @@
-<RCC>
-    <qresource prefix="/newPrefix">
-        <file>EWOBadges.ico</file>
-        <file>misc/images/fileopen.gif</file>
-        <file>misc/fonts/agency-fb.ttf</file>
-    </qresource>
-</RCC>

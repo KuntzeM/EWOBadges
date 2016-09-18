@@ -7,7 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt4 import QtCore, QtGui
-
+from kuntze.resource import resource_path
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
@@ -27,7 +27,7 @@ class Ui_MainWindow(object):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
         MainWindow.resize(665, 511)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/newPrefix/EWOBadges.ico")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8("EWOBadges.ico")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
@@ -69,7 +69,8 @@ class Ui_MainWindow(object):
         self.button_background.setGeometry(QtCore.QRect(620, 20, 31, 30))
         self.button_background.setText(_fromUtf8(""))
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap(_fromUtf8(":/newPrefix/misc/images/fileopen.gif")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon1.addPixmap(QtGui.QPixmap(_fromUtf8(resource_path("misc/images/fileopen.gif"))), QtGui.QIcon.Normal,
+                        QtGui.QIcon.Off)
         self.button_background.setIcon(icon1)
         self.button_background.setDefault(False)
         self.button_background.setFlat(False)
@@ -470,5 +471,3 @@ class Ui_MainWindow(object):
         self.Tab.setTabText(self.Tab.indexOf(self.tab_database), _translate("MainWindow", "2) Datensätze", None))
         self.button_start_generate.setText(_translate("MainWindow", "Badges erzeugen!", None))
         self.Tab.setTabText(self.Tab.indexOf(self.tab_generate), _translate("MainWindow", "3) Erzeugen", None))
-
-import image_rc
