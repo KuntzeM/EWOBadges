@@ -69,7 +69,7 @@ class Ui_MainWindow(object):
         self.button_background.setGeometry(QtCore.QRect(620, 20, 31, 30))
         self.button_background.setText(_fromUtf8(""))
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap(_fromUtf8("misc/images/fileopen.gif")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon1.addPixmap(QtGui.QPixmap(_fromUtf8(":/newPrefix/misc/images/fileopen.gif")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.button_background.setIcon(icon1)
         self.button_background.setDefault(False)
         self.button_background.setFlat(False)
@@ -436,7 +436,7 @@ class Ui_MainWindow(object):
         self.Tab.addTab(self.tab_generate, _fromUtf8(""))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 665, 24))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 665, 21))
         self.menubar.setObjectName(_fromUtf8("menubar"))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtGui.QStatusBar(MainWindow)
@@ -444,7 +444,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.Tab.setCurrentIndex(0)
+        self.Tab.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -471,3 +471,4 @@ class Ui_MainWindow(object):
         self.button_start_generate.setText(_translate("MainWindow", "Badges erzeugen!", None))
         self.Tab.setTabText(self.Tab.indexOf(self.tab_generate), _translate("MainWindow", "3) Erzeugen", None))
 
+import image_rc
